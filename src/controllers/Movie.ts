@@ -1,12 +1,8 @@
-import { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 import Movie, { IMovie, IProvider } from "../models/Movie";
 import axios from "axios";
 import { config } from "../config/config";
 import Logging from "../library/Logging";
-
-saveToMongo();
-// clearCollections();
 
 /** Get all movies from TMDB API*/
 async function getTMDBMovies() {
@@ -93,54 +89,4 @@ async function saveToMongo() {
     }
 }
 
-/** Update movies with providers from TMDB API */
-const updateMovie = (req: Request, res: Response, next: NextFunction, movieId: number) => {
-
-    return Movie.findById(movieId)
-        .then(movie => {
-            if (movie) {
-                movie.set(req.body)
-
-                return movie
-                    .save()
-                    .then(movie => res.status(201).json({ movie }))
-                    .catch(error => res.status(500).json({ error }));
-            } else {
-                res.status(404).json({
-                    message: 'Movie not found'
-                })
-            }
-        })
-        .catch(error => res.status(500).json({ error }));
-};
-
-/** Get a movie from MongoDB */
-const getMovieById = (req: Request, res: Response, next: NextFunction) => {
-    const movieId = req.params.movieId;
-
-    return Movie.findById(movieId)
-        .then(movie => movie ? res.status(200).json({ movie }) : res.status(404).json({
-            message: 'Movie not found'
-        }))
-        .catch(error => res.status(500).json({ error }));
-};
-
-/** Get all movies from MongoDB */
-const getMovies = (req: Request, res: Response, next: NextFunction) => {
-    return Movie.find()
-        .then(movie => res.status(200).json({ movie }))
-        .catch(error => res.status(500).json({ error }));
-};
-
-/** Delete movie from MongoDB */
-const deleteMovie = (req: Request, res: Response, next: NextFunction) => {
-    const movieId = req.params.movieId;
-
-    return Movie.findByIdAndDelete(movieId)
-        .then(movie => movie ? res.status(201).json({ message: 'deleted' }) : res.status(404).json({
-            message: 'Movie not found'
-        }))
-        .catch(error => res.status(500).json({ error }));
-};
-
-export default { getMovieById, getMovies, deleteMovie };
+export default { saveToMongo, clearCollections };

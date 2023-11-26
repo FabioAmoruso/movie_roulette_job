@@ -1,11 +1,10 @@
 {
-  "name": "movie_roulette_backend",
+  "name": "movie_roulette_job",
   "version": "1.0.0",
-  "description": "Movie Roulette backend",
-  "main": "src/server.ts",
+  "description": "Fetch data from TMDB API and insert them into a MongoDB collection.",
+  "main": "index.js",
   "scripts": {
-    "build": "rm -rf build/ && tsc",
-    "start": "node build/server.js"
+    "start": "ts-node-dev src/index.ts"
   },
   "author": "Fabio Amoruso",
   "license": "ISC",
@@ -13,12 +12,10 @@
     "axios": "^1.6.2",
     "chalk": "^4.1.2",
     "dotenv": "^16.3.1",
-    "express": "^4.18.2",
-    "joi": "^17.11.0",
     "mongoose": "^8.0.1"
   },
   "devDependencies": {
-    "@types/express": "^4.17.21",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^5.3.2"
   }
 }
