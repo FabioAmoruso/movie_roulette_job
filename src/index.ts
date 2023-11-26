@@ -12,6 +12,7 @@ mongoose.connect(config.mongo.url,
     }
 ).then(() => {
     Logging.info('Connected to MongoDB');
+    
     controller.saveToMongo();
     // controller.clearCollections();
 
