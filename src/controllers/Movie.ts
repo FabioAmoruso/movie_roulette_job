@@ -84,6 +84,11 @@ async function saveToMongo() {
                 }
             }
         }
+        Logging.info('Process finished');
+
+        mongoose.connection.close().then(() => {
+            Logging.info('Connection closed');
+        });
     } catch (error) {
         Logging.error(error);
     }
